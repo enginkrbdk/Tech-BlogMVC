@@ -1,0 +1,65 @@
+﻿@using MvcBlog.Models
+@model Article
+@{
+    ViewBag.Title = "NewArticle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>NewArticle</h2>
+
+<form class="form-horizontal" method="post">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Article Form</legend>
+        <!-- Text input-->
+   
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="article_title">Title</label>
+            <div class="col-md-4">
+                <input id="article_title" name="article_title" type="text" placeholder="article title" class="form-control input-md">
+
+            </div>
+        </div>
+        <!-- Text input-->
+    
+        <!-- Text input-->
+
+        <!-- Text input-->
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="source_image">Image</label>
+            <div class="col-md-4">
+                <input id="source_image" name="source_image" class="input-file" type="file">
+            </div>
+        </div>
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="source_description">Description</label>
+            <div class="col-md-4">
+                <textarea class="form-control" id="source_description" name="source_description"></textarea>
+            </div>
+        </div>
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="article_categories">Categories</label>
+            <div class="col-md-4">
+                <select id="article_categories" name="article_categories" class="form-control">
+                    <option value="1">Option one</option>
+                    <option value="2">Option two</option>
+                </select>
+            </div>
+        </div>
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="source_tags">Tage</label>
+            <div class="col-md-4">
+                <select id="source_tags" name="source_tags" class="form-control">
+                    <option value="">Option one</option>
+                    <option value="">Option two</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>

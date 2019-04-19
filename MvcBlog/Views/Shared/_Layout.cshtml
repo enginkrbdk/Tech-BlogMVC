@@ -38,16 +38,16 @@
                     </li>
                     @if (Session["userId"] != null)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/User/UserDetail">@Session["uname"]</a>
+                        <li class="nav-item" style="float:right;">
+                            <a class="nav-link" href="/User/Index/@Session["userId"]">@Session["uname"].ToString().ToUpper()</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="float:right;">
                             <a class="nav-link" href="/User/LogOut">Log Out</a>
                         </li>
                     }
                     else
                     {
-                        <li class="nav-item">
+                        <li class="nav-item" style="float:right;">
                             <a class="nav-link" href="/User/Login">Log In</a>
                         </li>
                     }
@@ -88,12 +88,7 @@
                 </div>
                 </div>
                 <!-- Side Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Side Widget</h5>
-                    <div class="card-body">
-                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-                    </div>
-                </div>
+          
             </div>
         </div>
         <!-- /.row -->

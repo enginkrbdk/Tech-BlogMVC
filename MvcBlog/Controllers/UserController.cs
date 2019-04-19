@@ -11,9 +11,15 @@ namespace MvcBlog.Controllers
     {
         BlogContext db = new BlogContext();
         // GET: User
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(int id)
         {
-            return View();
+            var find = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            if (Convert.ToInt32 (Session["userId"]) !=id) {
+
+                return HttpNotFound();
+            }
+            return View(find);
         }
 
 
@@ -64,7 +70,7 @@ namespace MvcBlog.Controllers
             if (login != null)
             {
 
-                Session["userId"] = user.Id;
+                Session["userId"] = login.Id;
                 Session["uname"] = user.UserName;
                 return RedirectToAction("Index", "Home");
 
@@ -88,6 +94,32 @@ namespace MvcBlog.Controllers
 
 
         }
+        [HttpGet]
+        public ActionResult UserDetail(int id)
+        {
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
+
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult UserDetail(User user,int id, HttpPostedFileBase imageinput,string email)
+        {
+            var yol = Server.MapPath("/Content/images/user/");  //fotografı kaydedicek olduğu yeri bulucak olduğu yer
+            var dosyaad = imageinput.FileName; //aşka bir isim vermek istersen uzantısıyla yazman gerek
+
+            imageinput.SaveAs(yol + dosyaad);
+            var update_user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+            update_user.FullName = user.FullName;
+            update_user.UserName = user.UserName;
+            update_user.Mail = email;
+            update_user.PhotoUrl = dosyaad;
+            update_user.Password = user.Password;
+            db.SaveChanges();
+            Session["uname"] = user.UserName;
+
+            return RedirectToAction("Index", "User", new { id = user.Id });
+        }
+
 
     }
 }

@@ -12,7 +12,9 @@ namespace MvcBlog.Controllers
         BlogContext db = new BlogContext();
         public ActionResult Index()
         {
-            return View();
+            var articles=  db.Articles.ToList();
+
+            return View(articles);
         }
 
         public ActionResult About()
@@ -35,7 +37,40 @@ namespace MvcBlog.Controllers
 
             return View(liste);
         }
+        [HttpGet]
+        public ActionResult ArticleInfo(int id)
+        {
+            var article = db.Articles.Where(x => x.Id == id).FirstOrDefault();
 
+
+            ViewBag.Message = "Your contact page.";
+
+            return View(article);
+        }
+
+
+        [HttpPost]
+        public ActionResult ArticleInfo(int id,string text)
+        {
+            Comment cmd = new Comment();
+
+            cmd.C_Content = text;
+            cmd.Article = db.Articles.Find(id);
+            cmd.User= db.Users.Find(Convert.ToInt32(Session["userId"]));
+            db.Comments.Add(cmd);
+            db.SaveChanges();
+            db.Comments.OrderByDescending(x => x.Date);
+            return RedirectToAction("ArticleInfo", "Home");
+        }
+
+        public ActionResult NewArticle()
+        {
+
+
+
+            return View();
+
+        }
 
     }
 }
